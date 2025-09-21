@@ -1,0 +1,153 @@
+/* 
+  ===============
+  CSS Variables (Nord Theme)
+  ===============
+*/
+:root {
+    /* Polar Night */
+    --nord0: #2E3440;
+    --nord1: #3B4252;
+    --nord3: #4C566A;
+
+    /* Snow Storm */
+    --nord4: #D8DEE9;
+    --nord6: #ECEFF4;
+
+    /* Frost */
+    --nord8: #88C0D0;
+    --nord10: #5E81AC;
+
+    /* Mapped to theme */
+    --primary-color: var(--nord1);
+    --secondary-color: var(--nord8);
+    --background-color: var(--nord6);
+    --text-color: var(--nord0);
+    --border-color: var(--nord4);
+    --link-hover-color: var(--nord10);
+    --font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+/* 
+  ===============
+  General Styles & Reset
+  ===============
+*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--link-hover-color);
+}
+
+/* 
+  ===============
+  Header & Navigation
+  ===============
+*/
+header {
+    background: var(--primary-color);
+    color: var(--nord6);
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--nord6);
+    font-weight: bold;
+    padding: 0.5rem;
+}
+
+nav a:hover {
+    color: var(--secondary-color);
+}
+
+/* 
+  ===============
+  Main Content Sections
+  ===============
+*/
+main {
+    padding: 2rem 0;
+}
+
+section {
+    padding: 4rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+#hero {
+    text-align: center;
+}
+
+#about {
+    /* Styles for the about me section */
+}
+
+#projects {
+    /* Styles for the projects section */
+}
+
+.project {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+#contact {
+    /* Styles for the contact section */
+}
+
+/* 
+  ===============
+  Footer
+  ===============
+*/
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--primary-color);
+    color: var(--nord6);
+}
+
+/* 
+  ===============
+  Responsive Design (Media Queries)
+  ===============
+*/
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    section {
+        padding: 2rem 1rem;
+    }
+}
