@@ -19,6 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!response.ok) throw new Error('Page not found');
                 const html = await response.text();
                 content.innerHTML = html;
+                // initialize dynamic UI (skill progress bars, etc.) after new content is injected
+                initSkillAnimations();
+                initHobbiesInteractions();
+                initContactForm();
             } catch (error) {
                 console.error('Error loading page:', error);
                 content.innerHTML = '<p>Error: Could not load page.</p>';
@@ -27,6 +31,99 @@ document.addEventListener('DOMContentLoaded', () => {
             // Handle 404
             content.innerHTML = '<p>Page not found. Please check the URL.</p>';
         }
+    }
+
+    function initHobbiesInteractions() {
+        // ensure only one audio preview plays at a time
+        const audios = document.querySelectorAll('.audio-preview');
+        if (audios.length) {
+            audios.forEach(a => {
+                a.addEventListener('play', () => {
+                    audios.forEach(other => { if (other !== a) other.pause(); });
+                });
+                // graceful fallback if file missing: show muted and disabled control
+                a.addEventListener('error', () => { a.setAttribute('aria-hidden', 'true'); a.style.opacity = 0.6; });
+            });
+        }
+
+
+    }
+
+    function initContactForm() {
+        const form = document.getElementById('contact-form');
+        if (!form) return;
+
+        const status = form.querySelector('.form-status');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            status.textContent = '';
+            status.className = 'form-status';
+
+            const subject = form.querySelector('[name="subject"]').value.trim();
+            const email = form.querySelector('[name="reply_to"]').value.trim();
+            const message = form.querySelector('[name="message"]').value.trim();
+
+            if (!subject || !email || !message) {
+                status.textContent = 'Bitte fülle alle Felder aus.';
+                status.classList.add('error');
+                return;
+            }
+
+            // If a form action is set (e.g., Formspree), POST to it
+            if (form.action) {
+                try {
+                    const fd = new FormData(form);
+                    const res = await fetch(form.action, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } });
+                    if (res.ok) {
+                        status.textContent = 'Danke — deine Nachricht wurde gesendet.';
+                        status.classList.add('success');
+                        form.reset();
+                    } else {
+                        const json = await res.json().catch(()=>null);
+                        status.textContent = json && json.error ? json.error : 'Fehler: Versand fehlgeschlagen.';
+                        status.classList.add('error');
+                    }
+                } catch (err) {
+                    status.textContent = 'Fehler beim Senden. Bitte versuche es später.';
+                    status.classList.add('error');
+                }
+                return;
+            }
+
+            // mailto fallback: requires data-recipient on form
+            const recipient = form.dataset.recipient;
+            if (recipient) {
+                const bodyText = `From: ${email}\n\n${message}`;
+                const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+                window.location.href = mailto;
+                return;
+            }
+
+            status.textContent = 'Formular nicht konfiguriert. Trage eine Formspree‑Endpoint URL in das Formular‑action ein oder setze data-recipient="you@domain.tld".';
+            status.classList.add('error');
+        });
+    }
+
+    function initSkillAnimations() {
+        const skills = document.querySelectorAll('.skill');
+        if (!skills.length) return;
+
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const bar = el.querySelector('.skill-bar span');
+                    const level = el.querySelector('.skill-bar').dataset.level || '0';
+                    // set width to trigger CSS transition
+                    bar.style.width = level + '%';
+                    el.classList.add('show');
+                    obs.unobserve(el);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        skills.forEach(s => observer.observe(s));
     }
     
     // Listen for routing changes
