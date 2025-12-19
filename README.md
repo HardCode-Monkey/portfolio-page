@@ -1,6 +1,10 @@
 # Portfolio Page
 This repository contains my portfolio page for the EWEB (Web Engineering) course at the Bern University of Applied Sciences (BFH). This project will be graded and be overseen by Syrian Hadad.
 
+# Disclaimer
+
+I used AI for generating the styling. But all choices and deciion of font, color and even the grid was my choice. The API which is in the source i from the offical code from spotify itself. The conent of the page and it structure is also from my creation.
+
 # Deadline and Deliverables
 
 The submission deadline is **December 19, 2025**.
