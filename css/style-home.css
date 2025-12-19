@@ -65,19 +65,7 @@
     border-radius: 50%;
 }
 
-/* decorative soft blob */
-#hero::before {
-    content: "";
-    position: absolute;
-    right: -80px;
-    top: -40px;
-    width: 260px;
-    height: 260px;
-    background: radial-gradient(circle at 30% 30%, rgba(136,192,208,0.12), rgba(94,129,172,0.06));
-    filter: blur(28px);
-    z-index: 0;
-    pointer-events: none;
-}
+/* decorative soft blob - removed */
 
 /* ensure hero text sits above decorative elements */
 .hero-inner, .hero-text, .hero-illustration { position: relative; z-index: 1; }
