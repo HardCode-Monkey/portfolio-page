@@ -43,6 +43,10 @@ body {
     background-color: var(--nord0);
     color: var(--nord6);
     line-height: 1.6;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 a {
@@ -67,6 +71,8 @@ header {
     color: var(--nord6);
     padding: 1rem 0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .nav-container {
@@ -134,12 +140,17 @@ nav#main-nav a:hover {
 */
 main {
     padding: 2rem 0;
+    width: 100%;
+    overflow-x: hidden;
+    flex: 1;
 }
 
 section {
     padding: 4rem 2rem;
     max-width: 900px;
     margin: 0 auto;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 /* 
@@ -204,6 +215,7 @@ footer {
     padding: 2rem;
     background-color: var(--primary-color);
     color: var(--nord6);
+    margin-top: auto;
 }
 
 /* 
