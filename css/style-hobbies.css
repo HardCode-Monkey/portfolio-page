@@ -1,0 +1,131 @@
+/* 
+  ===============
+  Hobbies Page Styles
+  ===============
+*/
+
+.hobbies-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 1rem;
+}
+
+.hobby-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: 1px solid rgba(216,222,233,0.04);
+    padding: 1.25rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.hobby-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 40px rgba(12, 20, 28, 0.28);
+}
+
+.hobby-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(136,192,208,0.08);
+    color: var(--secondary-color);
+}
+
+.hobby-card h3 { margin-top: 0.25rem; }
+.muted { color: var(--border-color); }
+
+.hobby-list { list-style: none; padding-left: 0; margin: 0.25rem 0 0.5rem 0; color: var(--nord6); }
+.hobby-list li { margin: 0.35rem 0; font-size: 0.95rem; }
+
+.hobby-actions { display: flex; gap: 0.6rem; margin-top: auto; }
+
+.hobby-music .hobby-icon { background: rgba(136,192,208,0.12); color: var(--secondary-color); }
+
+/* make the music card span the whole hobbies grid and appear larger */
+.hobby-music {
+    grid-column: 1 / -1;
+    padding: 2rem;
+}
+
+.hobby-music h3 { font-size: 1.35rem; }
+.hobby-music .hobby-icon { width: 68px; height: 68px; border-radius: 14px; }
+.hobby-music .hobby-list li { font-size: 1rem; }
+.hobby-music .audio-preview { height: 48px; }
+
+/* audio preview */
+.hobby-preview { margin-top: 0.55rem; }
+.audio-preview { width: 100%; height: 40px; }
+
+/* icon buttons for music links */
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+    color: var(--nord6);
+    border: 1px solid rgba(255,255,255,0.03);
+    text-decoration: none;
+    transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+}
+.icon-btn svg { display: block; }
+.icon-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,0.18); }
+
+.icon-btn.spotify { color: #1DB954; background: rgba(29,185,84,0.06); }
+.icon-btn.apple { color: #FA2D6B; background: rgba(250,45,107,0.04); }
+
+@media (max-width: 480px) {
+    .icon-btn { width: 40px; height: 40px; }
+}
+
+.btn-spotify {
+    background: #1DB954;
+    color: #072010;
+    border: 1px solid rgba(29,185,84,0.12);
+}
+.btn-spotify:hover { background: #19b24b; }
+
+.btn-apple {
+    background: linear-gradient(180deg, rgba(250,45,107,0.12), rgba(250,45,107,0.06));
+    color: var(--nord6);
+    border: 1px solid rgba(250,45,107,0.08);
+}
+.btn-apple:hover { background: linear-gradient(180deg, rgba(250,45,107,0.18), rgba(250,45,107,0.08)); }
+
+/* optional visible labels on very small screens */
+.icon-btn .label { display: none; font-size: 0.8rem; margin-top: 0.3rem; color: var(--nord6); text-align: center; }
+@media (max-width: 420px) {
+    .hobby-actions { flex-direction: column; align-items: center; }
+    .icon-btn { width: 56px; height: 56px; }
+    .icon-btn .label { display: block; }
+}
+
+@media (max-width: 900px) {
+    .hobbies-grid { grid-template-columns: 1fr; }
+}
+
+/* Spotify playlist embed */
+.spotify-playlist {
+    margin-top: 2rem;
+    padding: 1.25rem;
+    background: rgba(255,255,255,0.01);
+    border: 1px solid rgba(216,222,233,0.04);
+    border-radius: 12px;
+}
+
+.spotify-playlist h3 {
+    margin-bottom: 1rem;
+}
+
+.spotify-playlist iframe {
+    border-radius: 8px;
+}

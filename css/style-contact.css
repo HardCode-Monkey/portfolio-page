@@ -1,0 +1,50 @@
+/* 
+  ===============
+  Contact Page Styles
+  ===============
+*/
+
+/* Contact form */
+.contact-form {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+.contact-form label { color: var(--nord4); font-weight: 600; }
+.contact-form input,
+.contact-form textarea {
+    padding: 0.7rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.04);
+    background: rgba(255,255,255,0.02);
+    color: var(--nord6);
+}
+.contact-form input:focus, .contact-form textarea:focus { outline: none; box-shadow: 0 6px 20px rgba(94,129,172,0.08); }
+.form-actions { display: flex; gap: 1rem; align-items: center; }
+.form-status { color: var(--nord6); font-size: 0.95rem; }
+.form-status.success { color: #9be6b7; }
+.form-status.error { color: #ffb4b4; }
+.contact-help { margin-top: 1rem; color: var(--border-color); font-size: 0.95rem; }
+
+/* contact card (mailto variant) */
+.contact-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: 1px solid rgba(216,222,233,0.04);
+    padding: 1.25rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+}
+.contact-actions { margin-top: 0.8rem; display: flex; gap: 0.6rem; }
+.contact-card a { text-decoration: none; }
+
+/* small tag/badge */
+.tag {
+    display: inline-block;
+    padding: 0.18rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    color: var(--nord6);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(216,222,233,0.03);
+    margin-right: 0.4rem;
+}
