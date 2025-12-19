@@ -9,15 +9,21 @@
 <body>
     
     <header>
-        <nav>
-            <ul>
-                <!-- Navigation -->
-                <li><a href="#home">Home</a></li>
-                <li><a href="#projects">Projects & Work</a></li>
-                <li><a href="#hobbies">Hobbies</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        <div class="nav-container">
+            <a class="logo" href="#home">Deniz</a>
+            <button class="nav-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Open navigation">
+                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <nav id="main-nav">
+                <ul>
+                    <!-- Navigation -->
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#projects">Projects & Work</a></li>
+                    <li><a href="#hobbies">Hobbies</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     
     <main id="app-content">

@@ -49,6 +49,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    function initMobileNav() {
+        const toggle = document.querySelector('.nav-toggle');
+        const nav = document.getElementById('main-nav');
+        if (!toggle || !nav) return;
+
+        // create overlay
+        let overlay = document.querySelector('.nav-overlay');
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.className = 'nav-overlay';
+            document.body.appendChild(overlay);
+        }
+
+        function openNav() {
+            nav.classList.add('open');
+            overlay.classList.add('open');
+            toggle.setAttribute('aria-expanded', 'true');
+            toggle.setAttribute('aria-label', 'Close navigation');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNav() {
+            nav.classList.remove('open');
+            overlay.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Open navigation');
+            document.body.style.overflow = '';
+        }
+
+        toggle.addEventListener('click', () => {
+            if (nav.classList.contains('open')) closeNav(); else openNav();
+        });
+
+        overlay.addEventListener('click', closeNav);
+
+        // close when a navigation link is clicked (SPA nav)
+        nav.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') closeNav();
+        });
+
+        // close on Escape
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
+    }
+
     function initContactForm() {
         const form = document.getElementById('contact-form');
         if (!form) return;
@@ -126,8 +170,50 @@ document.addEventListener('DOMContentLoaded', () => {
         skills.forEach(s => observer.observe(s));
     }
     
+    // Authorization token that must have been created previously. See : https://developer.spotify.com/documentation/web-api/concepts/authorization
+    const token = 'BQAssocf8wPhDVfLYHRCBrqyxLgLwkn_zx3qIuW2Pn07_FAx_rQruPJRv7wDgDl3K7Yjtja_6A2wpXlDozxR6xYzvdnDP2IIEubqk1zcdqnnNBG-DDhU4Bj6PozBBSnYGBS7vIrpTpt5DDeQAviRKpL3uqZZEfDVdhzabFYW148Ae805CPyGDbZONQ51VRgve9Oav8yzj1U5yUx9HBZv9kDdK_aOqwzCxbwW95Q1XwHvExqxiFlL05cGyGs2QsadL2B3y2rEb84X8EL2maMSCQMI6Ljw92Cg_wVePZMJubhwJJiv';
+    async function fetchWebApi(endpoint, method, body) {
+      const res = await fetch(`https://api.spotify.com/${endpoint}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method,
+        body:JSON.stringify(body)
+      });
+      return await res.json();
+    }
+
+    const tracksUri = [
+      'spotify:track:4gD1qMyIjDyz7Te8nlQEji','spotify:track:51EpFns3CG9taCMQz6XDom','spotify:track:1eMUGMEWrvTXYWrPobq2dH','spotify:track:6TkeafUCCwwZWiTsEIFZFf','spotify:track:0TZmEWmZTyF74bgEK6R84c'
+    ];
+
+    async function createPlaylist(tracksUri){
+      const { id: user_id } = await fetchWebApi('v1/me', 'GET')
+
+      const playlist = await fetchWebApi(
+        `v1/users/${user_id}/playlists`, 'POST', {
+          "name": "My top tracks playlist",
+          "description": "Playlist created by the tutorial on developer.spotify.com",
+          "public": false
+      })
+
+      await fetchWebApi(
+        `v1/playlists/${playlist.id}/tracks?uris=${tracksUri.join(',')}`,
+        'POST'
+      );
+
+      return playlist;
+    }
+
+    (async () => {
+      const createdPlaylist = await createPlaylist(tracksUri);
+      console.log(createdPlaylist.name, createdPlaylist.id);
+    })();
+
     // Listen for routing changes
     window.addEventListener('hashchange', loadContent);
 
     loadContent();
+    initMobileNav();
 });
+
